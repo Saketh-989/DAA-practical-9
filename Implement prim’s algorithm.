@@ -1,0 +1,48 @@
+
+import sys
+
+def prim(graph, n):
+    selected = [False] * n
+    selected[0] = True
+
+    total_cost = 0
+
+    print("Minimum Spanning Tree:")
+
+    for _ in range(n - 1):
+        minimum = sys.maxsize
+        x = 0
+        y = 0
+
+        for i in range(n):
+            if selected[i]:
+                for j in range(n):
+                    if not selected[j] and graph[i][j] != 0:
+                        if graph[i][j] < minimum:
+                            minimum = graph[i][j]
+                            x = i
+                            y = j
+
+        if minimum == sys.maxsize:
+            print("Graph is disconnected; MST cannot be formed.")
+            return
+
+        print(x, "-", y, ":", graph[x][y])
+        total_cost += graph[x][y]
+        selected[y] = True
+
+    print("Total cost of MST:", total_cost)
+
+
+n = int(input("Enter number of vertices: "))
+
+print("Enter adjacency matrix (0 if no edge):")
+graph = []
+
+for i in range(n):
+    row = list(map(int, input().split()))
+    graph.append(row)
+
+prim(graph, n)
+
+print("\nEnrollment Number: 92400118506")
